@@ -1,12 +1,12 @@
 {
-    "name": "clubedev/pagbank-php",
+    "name": "wcostaprijo/pagbank-php",
     "description": "Biblioteca PHP para integração com a API PagBank.",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "Clube Dev",
-            "email": "contato@clubedev.com.br"
+            "name": "Wanderson Costa Aprijo",
+            "email": "contact.wcdevelopment@gmail.com"
         }
     ],
     "require": {
