@@ -1,6 +1,6 @@
 # PHP PagBank — Integração com PagBank
 
-Este SDK facilita pagamentos com PagBank utilizando a ponte oficial do **ClubeDev**, permitindo criar cobranças, consultar transações e realizar cancelamentos totais ou parciais de maneira simples e padronizada.
+Este SDK facilita pagamentos com PagBank de maneira simples e padronizada.
 
 A biblioteca foi desenvolvida para ser utilizada por **programadores iniciantes e intermediários**, com foco em simplicidade, clareza e segurança.
 
@@ -47,23 +47,9 @@ composer require clubedev/pagbank-php
 
 Para utilizar a biblioteca, você precisa fornecer:
 
-- **Token PagBank**  
-- **Token ClubeDev**
+- **Token PagBank**
 
-Ambos são obrigatórios para validação, segurança e auditoria das operações.
-
-### Adquirindo e configurando seu Token ClubeDev
-
-#### Ambiente Sandbox (testes)
-1. Utilize o seguinte token: `78e670d6-bbbc-4cec-a4e8-79556aa61dfc`
-
-#### Ambiente Produção
-1. Acesse: https://clubedev.com.br
-2. Compre seu token
-3. Acesse sua conta em: https://painel.clubedev.com.br
-4. Vá ao menu **Tokens**
-5. Clique em **Configurar Token**
-6. Preencha os dados e clique em **Salvar**
+Ele é obrigatório para autenticação, segurança e auditoria das operações.
 
 ### Gerando seu Token PagBank
 
@@ -90,7 +76,6 @@ use ClubeDev\PagBank\PagBank;
 
 $payment = new PagBank(
     pagBankToken: 'SEU_TOKEN_PAGBANK',
-    clubeDevToken: 'SEU_TOKEN_CLUBEDEV',
     sandbox: true // true = ambiente de testes
 );
 ```

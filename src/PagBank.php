@@ -17,10 +17,10 @@ class PagBank
     protected PagBankClient $client;
     private string $pagBankToken;
 
-    public function __construct(string $pagBankToken, string $clubeDevToken, bool $sandbox = false)
+    public function __construct(string $pagBankToken, bool $sandbox = false)
     {
         $this->pagBankToken = $pagBankToken;
-        $this->client = new PagBankClient($pagBankToken, $clubeDevToken, $sandbox);
+        $this->client = new PagBankClient($pagBankToken, $sandbox);
     }
 
     public function createPayment(mixed $reference, Client $client, Payment $payment, ?array $items = null, ?Shipping $shipping = null, ?string $webhook_url = null): CreatePaymentResponse
@@ -48,5 +48,10 @@ class PagBank
     public function webhook(array $data): PaymentWebhook
     {
         return new PaymentWebhook($data, $this->pagBankToken);
+    }
+
+    public function getClient(): PagBankClient
+    {
+        return $this->client;
     }
 }

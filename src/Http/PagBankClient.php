@@ -11,22 +11,13 @@ class PagBankClient
 {
     protected Client $http;
 
-    public function __construct(string $pagBankToken, string $clubeDevToken, bool $sandbox = false)
+    public function __construct(string $pagBankToken, bool $sandbox = false)
     {
-        $projectRoot = realpath(__DIR__ . '/../../../../../');
-        $composerLock = $projectRoot . '/composer.lock';
-
-        if(!file_exists($projectRoot) || !file_exists($composerLock)) {
-            throw new ClubedevException('Não conseguimos validar sua biblioteca', 500);
-        }
-
         $this->http = new Client([
             'base_uri' => 'https://clubedev.com.br/api/' . ($sandbox ? 'sandbox/' : ''),
             'timeout'  => 10,
             'headers'  => [
                 'X-PAGBANK-TOKEN' => $pagBankToken,
-                'X-CLUBEDEV-TOKEN' => $clubeDevToken,
-                'X-FINGERPRINT' => hash('sha256', realpath($projectRoot).filemtime($composerLock).phpversion()),
                 'Accept' => 'application/json',
             ]
         ]);
@@ -39,16 +30,7 @@ class PagBankClient
             return json_decode($response->getBody()->getContents(), true);
         } catch (ClientException $e) {
             $body = (string) $e->getResponse()->getBody();
-            $json = json_decode($body, true);
-            switch ($json['type'] ?? null) {
-                case 'clubedev_token_not_found':
-                case 'clubedev_depreciated_library':
-                    throw new ClubedevException($body, $e->getCode());
-                    break;
-
-                default:
-                    throw new PagBankException($body, $e->getCode());
-            }
+            throw new PagBankException($body, $e->getCode());
         }
 
         return [];
@@ -61,15 +43,7 @@ class PagBankClient
             return json_decode($response->getBody()->getContents(), true);
         } catch (ClientException $e) {
             $body = (string) $e->getResponse()->getBody();
-            $json = json_decode($body, true);
-            switch ($json['type'] ?? null) {
-                case 'clubedev_token_not_found':
-                    throw new ClubedevException($body, $e->getCode());
-                    break;
-
-                default:
-                    throw new PagBankException($body, $e->getCode());
-            }
+            throw new PagBankException($body, $e->getCode());
         }
     }
 
@@ -80,15 +54,12 @@ class PagBankClient
             return json_decode($response->getBody()->getContents(), true);
         } catch (ClientException $e) {
             $body = (string) $e->getResponse()->getBody();
-            $json = json_decode($body, true);
-            switch ($json['type'] ?? null) {
-                case 'clubedev_token_not_found':
-                    throw new ClubedevException($body, $e->getCode());
-                    break;
-
-                default:
-                    throw new PagBankException($body, $e->getCode());
-            }
+            throw new PagBankException($body, $e->getCode());
         }
+    }
+
+    public function setHttpClient(Client $client): void
+    {
+        $this->http = $client;
     }
 }
