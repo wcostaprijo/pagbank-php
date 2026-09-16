@@ -1,6 +1,6 @@
 <?php
 
-namespace ClubeDev\PagBank\Domain\Payment;
+namespace PagBank\Domain\Payment;
 
 class Title
 {

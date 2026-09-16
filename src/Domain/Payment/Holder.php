@@ -1,8 +1,8 @@
 <?php
 
-namespace ClubeDev\PagBank\Domain\Payment;
+namespace PagBank\Domain\Payment;
 
-use ClubeDev\PagBank\Domain\Address;
+use PagBank\Domain\Address;
 
 class Holder
 {

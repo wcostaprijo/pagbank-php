@@ -1,6 +1,6 @@
 <?php
 
-namespace ClubeDev\PagBank\Domain;
+namespace PagBank\Domain;
 
 class Item
 {

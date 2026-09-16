@@ -72,7 +72,7 @@ Ele é obrigatório para autenticação, segurança e auditoria das operações.
 ```php
 require 'vendor/autoload.php';
 
-use ClubeDev\PagBank\PagBank;
+use PagBank\PagBank;
 
 $payment = new PagBank(
     pagBankToken: 'SEU_TOKEN_PAGBANK',
@@ -87,13 +87,13 @@ $payment = new PagBank(
 ## Criar pagamento Pix
 
 ```php
-use ClubeDev\PagBank\Domain\Client;
-use ClubeDev\PagBank\Domain\Phone;
-use ClubeDev\PagBank\Domain\Item;
-use ClubeDev\PagBank\Domain\Shipping;
-use ClubeDev\PagBank\Domain\Address;
-use ClubeDev\PagBank\Domain\Payment;
-use ClubeDev\PagBank\Domain\Payment\Pix;
+use PagBank\Domain\Client;
+use PagBank\Domain\Phone;
+use PagBank\Domain\Item;
+use PagBank\Domain\Shipping;
+use PagBank\Domain\Address;
+use PagBank\Domain\Payment;
+use PagBank\Domain\Payment\Pix;
 
 $response = $payment->createPayment(
     reference: "identificação-informada-por-você", // Geralmente utilizado algum id
@@ -172,17 +172,17 @@ $qrcodeImage = $response->payment()?->pix?->qrcode_image;
 
 ## Criar pagamento Cartão
 
-Para criar pagamento com cartão é obrigatório a utilização da biblioteca frontend **[@clubedev/pagbank-encrypt-card](https://www.npmjs.com/package/@clubedev/pagbank-encrypt-card)** para gerar o **card_token**
+Para criar pagamento com cartão é obrigatório a utilização da biblioteca frontend **[pagbank-encrypt-card](https://www.npmjs.com/package/pagbank-encrypt-card)** para gerar o **card_token**
 
 ```php
-use ClubeDev\PagBank\Domain\Client;
-use ClubeDev\PagBank\Domain\Phone;
-use ClubeDev\PagBank\Domain\Item;
-use ClubeDev\PagBank\Domain\Shipping;
-use ClubeDev\PagBank\Domain\Address;
-use ClubeDev\PagBank\Domain\Payment;
-use ClubeDev\PagBank\Domain\Payment\CreditCard;
-use ClubeDev\PagBank\Domain\Payment\Holder;
+use PagBank\Domain\Client;
+use PagBank\Domain\Phone;
+use PagBank\Domain\Item;
+use PagBank\Domain\Shipping;
+use PagBank\Domain\Address;
+use PagBank\Domain\Payment;
+use PagBank\Domain\Payment\CreditCard;
+use PagBank\Domain\Payment\Holder;
 
 $response = $payment->createPayment(
     reference: "identificação-informada-por-você", // Geralmente utilizado algum id
@@ -226,7 +226,7 @@ $response = $payment->createPayment(
             amount: 21.36,
             description: 'Descrição do pagamento',
             soft_descriptor: 'NOMEFATURACLIENTE',
-            card_token: 'TOKEN_GERADO_PELO_SDK_JS', // Utilize ClubeDev PagBank Card Encrypt
+            card_token: 'TOKEN_GERADO_PELO_SDK_JS', // Utilize pagbank-encrypt-card no frontend
             holder: new Holder(
                 document: '123.456.789-09',
                 name: 'Wanderson Teste',
@@ -274,14 +274,14 @@ $holderDocument = $response->payment()?->credit_card?->holder?->document;
 ## Criar pagamento Boleto
 
 ```php
-use ClubeDev\PagBank\Domain\Client;
-use ClubeDev\PagBank\Domain\Phone;
-use ClubeDev\PagBank\Domain\Item;
-use ClubeDev\PagBank\Domain\Shipping;
-use ClubeDev\PagBank\Domain\Address;
-use ClubeDev\PagBank\Domain\Payment;
-use ClubeDev\PagBank\Domain\Payment\Title;
-use ClubeDev\PagBank\Domain\Payment\Holder;
+use PagBank\Domain\Client;
+use PagBank\Domain\Phone;
+use PagBank\Domain\Item;
+use PagBank\Domain\Shipping;
+use PagBank\Domain\Address;
+use PagBank\Domain\Payment;
+use PagBank\Domain\Payment\Title;
+use PagBank\Domain\Payment\Holder;
 
 $response = $payment->createPayment(
     reference: "identificação-informada-por-você", // Geralmente utilizado algum id
@@ -526,7 +526,7 @@ Abaixo, um resumo simples:
 
 ### Phone
 ```php
-use ClubeDev\PagBank\Domain\Phone;
+use PagBank\Domain\Phone;
 
 new Phone(
     country: 55, 
@@ -537,7 +537,7 @@ new Phone(
 
 ### Client
 ```php
-use ClubeDev\PagBank\Domain\Client;
+use PagBank\Domain\Client;
 
 new Client(
     document: "12345678900",
@@ -552,7 +552,7 @@ new Client(
 
 ### Item
 ```php
-use ClubeDev\PagBank\Domain\Item;
+use PagBank\Domain\Item;
 
 new Item(
     name: 'Item teste',
@@ -563,7 +563,7 @@ new Item(
 
 ### Address
 ```php
-use ClubeDev\PagBank\Domain\Address;
+use PagBank\Domain\Address;
 
 new Address(
     street: 'Rua 01',
@@ -579,7 +579,7 @@ new Address(
 
 ### Shipping
 ```php
-use ClubeDev\PagBank\Domain\Shipping;
+use PagBank\Domain\Shipping;
 
 new Shipping(
     address: new Address(...),
@@ -588,7 +588,7 @@ new Shipping(
 
 ### Holder
 ```php
-use ClubeDev\PagBank\Domain\Payment\Holder;
+use PagBank\Domain\Payment\Holder;
 
 new Holder(
     document: '123.456.789-09',
@@ -600,7 +600,7 @@ new Holder(
 
 ### CreditCard
 ```php
-use ClubeDev\PagBank\Domain\Payment\CreditCard;
+use PagBank\Domain\Payment\CreditCard;
 
 new CreditCard(
     amount: 11.50,
@@ -621,7 +621,7 @@ new CreditCard(
 
 ### Title
 ```php
-use ClubeDev\PagBank\Domain\Payment\Title;
+use PagBank\Domain\Payment\Title;
 
 new Title(
     amount: 11.50,
@@ -638,7 +638,7 @@ new Title(
 
 ### Pix
 ```php
-use ClubeDev\PagBank\Domain\Payment\Pix;
+use PagBank\Domain\Payment\Pix;
 
 new Pix(
     amount: 11.50,
@@ -651,7 +651,7 @@ new Pix(
 
 ### Payment
 ```php
-use ClubeDev\PagBank\Domain\Payment;
+use PagBank\Domain\Payment;
 
 new Payment(
     pix: new Pix(...),
@@ -671,23 +671,21 @@ new Payment(
 
 Todas as operações podem lançar exceções:
 
-- `ClubedevException` – Erro lançado pelo ClubeDev
-- `PagBankException` – Erro lançado pelo PagBank
+- `PagBankException` – Erro retornado pela API do PagBank
+- `ValidationException` – Erro de validação dos parâmetros informados
 
 ### Exemplo de uso seguro:
 
 ```php
-use ClubeDev\PagBank\Exceptions\ClubedevException;
-use ClubeDev\PagBank\Exceptions\PagBankException;
+use PagBank\Exceptions\PagBankException;
+use PagBank\Exceptions\ValidationException;
 
 try {
     $response = $payment->getPayment('ORDER_ID');
-} catch(ClubedevException $e) {
-    $exception = json_decode($e->getMessage());
-    echo $exception?->error ?? $exception?->message ?? $e->getMessage();
 } catch(PagBankException $e) {
-    $exception = json_decode($e->getMessage());
-    echo $exception?->error ?? $exception?->message ?? $e->getMessage();
+    echo "Erro PagBank: " . $e->getMessage();
+} catch(ValidationException $e) {
+    echo "Erro de Validação: " . $e->getMessage();
 } catch (\Throwable $th) {
     echo $th->getMessage();
 }
@@ -697,9 +695,8 @@ try {
 
 # Suporte
 
-- **Site ClubeDev:** https://clubedev.com.br  
-- Suporte técnico via painel do cliente  
 - Exemplos e atualizações no repositório oficial
+- Reporte problemas e envie sugestões via Issues no GitHub
 
 ---
 

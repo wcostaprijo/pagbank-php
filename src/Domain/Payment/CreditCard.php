@@ -1,6 +1,6 @@
 <?php
 
-namespace ClubeDev\PagBank\Domain\Payment;
+namespace PagBank\Domain\Payment;
 
 class CreditCard
 {
@@ -28,7 +28,7 @@ class CreditCard
             'description' => $this->description,
             'soft_descriptor' => $this->soft_descriptor,
             'card_token' => $this->card_token,
-            'holder' => $this->holder,
+            'holder' => $this->holder->toArray(),
             'charge_id' => $this->charge_id,
             'reference' => $this->reference,
             'authorization_code' => $this->authorization_code,

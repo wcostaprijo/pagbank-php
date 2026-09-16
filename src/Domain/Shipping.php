@@ -1,8 +1,8 @@
 <?php
 
-namespace ClubeDev\PagBank\Domain;
+namespace PagBank\Domain;
 
-use ClubeDev\PagBank\Exceptions\ValidationException;
+use PagBank\Exceptions\ValidationException;
 
 class Shipping
 {

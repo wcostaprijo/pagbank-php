@@ -1,17 +1,17 @@
 <?php
 
-namespace ClubeDev\PagBank\Http\Responses;
+namespace PagBank\Http\Responses;
 
-use ClubeDev\PagBank\Domain\Address;
-use ClubeDev\PagBank\Domain\Client;
-use ClubeDev\PagBank\Domain\Item;
-use ClubeDev\PagBank\Domain\Payment;
-use ClubeDev\PagBank\Domain\Payment\CreditCard;
-use ClubeDev\PagBank\Domain\Payment\Holder;
-use ClubeDev\PagBank\Domain\Payment\Pix;
-use ClubeDev\PagBank\Domain\Payment\Title;
-use ClubeDev\PagBank\Domain\Phone;
-use ClubeDev\PagBank\Domain\Shipping;
+use PagBank\Domain\Address;
+use PagBank\Domain\Client;
+use PagBank\Domain\Item;
+use PagBank\Domain\Payment;
+use PagBank\Domain\Payment\CreditCard;
+use PagBank\Domain\Payment\Holder;
+use PagBank\Domain\Payment\Pix;
+use PagBank\Domain\Payment\Title;
+use PagBank\Domain\Phone;
+use PagBank\Domain\Shipping;
 
 class GetPaymentResponse
 {
@@ -20,27 +20,27 @@ class GetPaymentResponse
 
     public function raw(): array
     {
-        return $this->data;
+        return $this->data['raw'] ?? $this->data;
     }
 
-    public function orderId(): string
+    public function orderId(): ?string
     {
-        return $this->data['id'];
+        return $this->data['id'] ?? null;
     }
 
     public function reference(): mixed
     {
-        return $this->data['reference'];
+        return $this->data['reference'] ?? null;
     }
 
-    public function createdAt(): string
+    public function createdAt(): ?string
     {
-        return $this->data['created_at'];
+        return $this->data['created_at'] ?? null;
     }
 
-    public function status(): string
+    public function status(): ?string
     {
-        return $this->data['status'];
+        return $this->data['status'] ?? null;
     }
 
     public function shipping(): ?Shipping
@@ -62,9 +62,9 @@ class GetPaymentResponse
         $items = [];
         foreach($this->data['items'] ?? [] as $item) {
             $items[] = new Item(
-                name: $item['name'],
-                quantity: $item['quantity'],
-                unit_amount: $item['unit_amount'],
+                name: $item['name'] ?? '',
+                quantity: (int) ($item['quantity'] ?? 0),
+                unit_amount: (float) ($item['unit_amount'] ?? 0),
             );
         }
 
@@ -77,17 +77,17 @@ class GetPaymentResponse
         if(!empty($this->data['client']['phones'])) {
             foreach($this->data['client']['phones'] as $phone) {
                 $phones[] = new Phone(
-                    country: $phone['country'],
-                    area: $phone['area'],
-                    number: $phone['number']
+                    country: (int) ($phone['country'] ?? 55),
+                    area: (int) ($phone['area'] ?? 0),
+                    number: (int) ($phone['number'] ?? 0)
                 );
             }
         }
 
         return !empty($this->data['client']) ? new Client(
-            document: $this->data['client']['document'],
-            name: $this->data['client']['name'],
-            email: $this->data['client']['email'],
+            document: $this->data['client']['document'] ?? '',
+            name: $this->data['client']['name'] ?? '',
+            email: $this->data['client']['email'] ?? '',
             phones: $phones
         ) : null;
     }
@@ -97,27 +97,27 @@ class GetPaymentResponse
         $pix = null;
         if(!empty($this->data['payment']['pix'])) {
             $pix = new Pix(
-                expiration_date: $this->data['payment']['pix']['expiration_date'],
-                amount: $this->data['payment']['pix']['amount'],
-                charge_id: $this->data['payment']['pix']['charge_id'],
-                qrcode: $this->data['payment']['pix']['qrcode'],
-                qrcode_image: $this->data['payment']['pix']['qrcode_image']
+                expiration_date: $this->data['payment']['pix']['expiration_date'] ?? '',
+                amount: (float) ($this->data['payment']['pix']['amount'] ?? 0),
+                charge_id: $this->data['payment']['pix']['charge_id'] ?? null,
+                qrcode: $this->data['payment']['pix']['qrcode'] ?? null,
+                qrcode_image: $this->data['payment']['pix']['qrcode_image'] ?? null
             );
         }
 
         $title = null;
         if(!empty($this->data['payment']['title'])) {
             $title = new Title(
-                description: $this->data['payment']['title']['description'],
-                amount: $this->data['payment']['title']['amount'],
-                due_date: $this->data['payment']['title']['due_date'],
-                charge_id: $this->data['payment']['title']['charge_id'],
-                bar_code: $this->data['payment']['title']['bar_code'],
-                url: $this->data['payment']['title']['url'],
+                description: $this->data['payment']['title']['description'] ?? '',
+                amount: (float) ($this->data['payment']['title']['amount'] ?? 0),
+                due_date: $this->data['payment']['title']['due_date'] ?? '',
+                charge_id: $this->data['payment']['title']['charge_id'] ?? null,
+                bar_code: $this->data['payment']['title']['bar_code'] ?? null,
+                url: $this->data['payment']['title']['url'] ?? null,
                 holder: new Holder(
-                    name: $this->data['payment']['title']['holder']['name'],
-                    email: $this->data['payment']['title']['holder']['email'],
-                    document: $this->data['payment']['title']['holder']['document'],
+                    name: $this->data['payment']['title']['holder']['name'] ?? '',
+                    email: $this->data['payment']['title']['holder']['email'] ?? '',
+                    document: $this->data['payment']['title']['holder']['document'] ?? '',
                     address: new Address(
                         street: $this->data['payment']['title']['holder']['address']['street'] ?? '',
                         number: $this->data['payment']['title']['holder']['address']['number'] ?? '',
@@ -134,19 +134,20 @@ class GetPaymentResponse
         $creditCard = null;
         if(!empty($this->data['payment']['credit_card'])) {
             $creditCard = new CreditCard(
-                amount: $this->data['payment']['credit_card']['amount'],
-                description: $this->data['payment']['credit_card']['description'],
-                soft_descriptor: $this->data['payment']['credit_card']['soft_descriptor'],
-                charge_id: $this->data['payment']['credit_card']['charge_id'],
-                reference: $this->data['payment']['credit_card']['reference'],
-                authorization_code: $this->data['payment']['credit_card']['authorization_code'],
-                nsu: $this->data['payment']['credit_card']['nsu'],
-                brand: $this->data['payment']['credit_card']['brand'],
-                card_number: $this->data['payment']['credit_card']['card_number'],
-                expiration: $this->data['payment']['credit_card']['expiration'],
+                amount: (float) ($this->data['payment']['credit_card']['amount'] ?? 0),
+                description: $this->data['payment']['credit_card']['description'] ?? '',
+                soft_descriptor: $this->data['payment']['credit_card']['soft_descriptor'] ?? '',
+                charge_id: $this->data['payment']['credit_card']['charge_id'] ?? null,
+                reference: $this->data['payment']['credit_card']['reference'] ?? null,
+                authorization_code: $this->data['payment']['credit_card']['authorization_code'] ?? null,
+                nsu: $this->data['payment']['credit_card']['nsu'] ?? null,
+                brand: $this->data['payment']['credit_card']['brand'] ?? null,
+                card_number: $this->data['payment']['credit_card']['card_number'] ?? null,
+                expiration: $this->data['payment']['credit_card']['expiration'] ?? null,
+                installments: (int) ($this->data['payment']['credit_card']['installments'] ?? 1),
                 holder: new Holder(
-                    name: $this->data['payment']['credit_card']['holder']['name'],
-                    document: $this->data['payment']['credit_card']['holder']['document'],
+                    name: $this->data['payment']['credit_card']['holder']['name'] ?? '',
+                    document: $this->data['payment']['credit_card']['holder']['document'] ?? '',
                 ),
             );
         }
@@ -158,8 +159,8 @@ class GetPaymentResponse
             paid_at: $this->data['payment']['paid_at'] ?? null,
             status: $this->data['payment']['status'] ?? null,
             full_refunded: $this->data['payment']['full_refunded'] ?? null,
-            paid: $this->data['payment']['paid'] ?? null,
-            refunded: $this->data['payment']['refunded'] ?? null
+            paid: isset($this->data['payment']['paid']) ? (float) $this->data['payment']['paid'] : null,
+            refunded: isset($this->data['payment']['refunded']) ? (float) $this->data['payment']['refunded'] : null,
         ) : null;
     }
 }

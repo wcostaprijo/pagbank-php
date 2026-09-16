@@ -13,6 +13,7 @@
         "php": ">=8.1",
         "guzzlehttp/guzzle": "^7.0",
         "ext-json": "*",
+        "ext-bcmath": "*",
         "nesbot/carbon": "^3.10"
     },
     "require-dev": {
@@ -20,12 +21,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ClubeDev\\PagBank\\": "src/"
+            "PagBank\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ClubeDev\\PagBank\\Tests\\": "tests/"
+            "PagBank\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "stable",

@@ -1,11 +1,11 @@
 <?php
 
-namespace ClubeDev\PagBank\Domain;
+namespace PagBank\Domain;
 
-use ClubeDev\PagBank\Domain\Payment\CreditCard;
-use ClubeDev\PagBank\Domain\Payment\Pix;
-use ClubeDev\PagBank\Domain\Payment\Title;
-use ClubeDev\PagBank\Exceptions\ValidationException;
+use PagBank\Domain\Payment\CreditCard;
+use PagBank\Domain\Payment\Pix;
+use PagBank\Domain\Payment\Title;
+use PagBank\Exceptions\ValidationException;
 
 class Payment
 {

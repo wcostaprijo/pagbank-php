@@ -1,6 +1,6 @@
 <?php
 
-namespace ClubeDev\PagBank\Exceptions;
+namespace PagBank\Exceptions;
 
 use Exception;
 

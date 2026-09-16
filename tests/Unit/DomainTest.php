@@ -1,19 +1,19 @@
 <?php
 
-namespace ClubeDev\PagBank\Tests\Unit;
+namespace PagBank\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use ClubeDev\PagBank\Domain\Client;
-use ClubeDev\PagBank\Domain\Phone;
-use ClubeDev\PagBank\Domain\Item;
-use ClubeDev\PagBank\Domain\Address;
-use ClubeDev\PagBank\Domain\Shipping;
-use ClubeDev\PagBank\Domain\Payment;
-use ClubeDev\PagBank\Domain\Payment\Pix;
-use ClubeDev\PagBank\Domain\Payment\Title;
-use ClubeDev\PagBank\Domain\Payment\CreditCard;
-use ClubeDev\PagBank\Domain\Payment\Holder;
-use ClubeDev\PagBank\Exceptions\ValidationException;
+use PagBank\Domain\Client;
+use PagBank\Domain\Phone;
+use PagBank\Domain\Item;
+use PagBank\Domain\Address;
+use PagBank\Domain\Shipping;
+use PagBank\Domain\Payment;
+use PagBank\Domain\Payment\Pix;
+use PagBank\Domain\Payment\Title;
+use PagBank\Domain\Payment\CreditCard;
+use PagBank\Domain\Payment\Holder;
+use PagBank\Exceptions\ValidationException;
 
 class DomainTest extends TestCase
 {
