@@ -700,4 +700,15 @@ try {
 
 ---
 
+# Doações
+
+Agradecemos o seu interesse em apoiar o desenvolvimento desta biblioteca. O seu apoio é fundamental para mantermos a qualidade e a atualização constante dos recursos.
+
+### PIX
+Você pode fazer uma doação utilizando PIX:
+
+- **Chave PIX:** 58545a3b-986e-47d2-b282-195264b62aa5
+
+---
+
 ⌛ *Desenvolvido para ser simples, direto e produtivo.*  
